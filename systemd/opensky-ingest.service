@@ -1,0 +1,17 @@
+[Unit]
+Description=OpenSky Flight Tracker - Ingest
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=flightingest
+Group=flightingest
+WorkingDirectory=/opt/opensky-flight-tracker
+EnvironmentFile=/etc/opensky-flight-tracker/opensky.env
+ExecStart=/usr/bin/python3 /opt/opensky-flight-tracker/ingest.py
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
